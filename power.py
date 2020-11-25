@@ -36,3 +36,34 @@ print('mem power:', mem_power_model)
 ic_power_model = np.polyfit(total_tiles, Ic_power_mw, 1)
 print('ic power model:', ic_power_model)
 
+cp_pes = 397
+cp_mems = 8
+cp_total = cp_pes + cp_mems
+
+cp_pe_power = pe_power_model[0]*cp_pes + pe_power_model[1]
+cp_mem_power = mem_power_model[0]*cp_mems + mem_power_model[1]
+cp_ic_power = ic_power_model[0]*cp_total + ic_power_model[1]
+
+cp_power_mw = cp_pe_power + cp_mem_power + cp_ic_power
+print('Total CP power in mW:', cp_power_mw)
+
+cp_cycle_exe_time = float(4122)
+cycles_per_sec = float(1e9)
+
+cp_ops_per_cycle = float(397)
+
+cp_ops = cp_ops_per_cycle*cp_cycle_exe_time
+
+print('# ops in CP:', cp_ops)
+
+cp_exe_time_sec = cp_cycle_exe_time / cycles_per_sec
+
+print('Exe time cp (sec):', cp_exe_time_sec)
+
+cp_power_watts = cp_power_mw / 1000
+print('CP power (Watts)', cp_power_watts)
+
+cp_energy_joules = cp_power_watts * cp_exe_time_sec
+print('CP Energy consumed =', cp_energy_joules)
+
+print('CP Energy / op =', cp_energy_joules / cp_ops)
