@@ -46,7 +46,9 @@ cp_ops_per_cycle = float(397)
 def apply_model(pe_count, mem_count, cycle_exe_time, ops_per_cycle):
 
     cycles_per_sec = float(1e9)
+
     cp_total = pe_count + mem_count
+
     m_pe_power = pe_power_model[0]*cp_pes + pe_power_model[1]
     m_mem_power = mem_power_model[0]*cp_mems + mem_power_model[1]
     m_ic_power = ic_power_model[0]*cp_total + ic_power_model[1]
